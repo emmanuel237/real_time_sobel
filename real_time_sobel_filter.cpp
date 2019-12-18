@@ -17,7 +17,7 @@ int main(int argc, char **argv)
   cv::namedWindow("InputFrame", cv::WINDOW_AUTOSIZE); //creating a window to display image
   cv::namedWindow("SobelFilter", cv::WINDOW_AUTOSIZE);
   cv::VideoCapture cap; //cap object used to capture image from the input camera
-  setNumThreads(1);
+  setNumThreads(6);
   Mat frame_gray, sobel_frame;
   int inputCam;
   long tick1, tick2;
@@ -48,7 +48,8 @@ int main(int argc, char **argv)
     //Scharr( src_gray, grad_y, ddepth, 0, 1, scale, delta, BORDER_DEFAULT );
     cv::Sobel(frame, grad_y, CV_16S, 0, 1, 3, 1, 0, BORDER_DEFAULT);
     cv::convertScaleAbs(grad_y, abs_grad_y);
-
+    cv::imshow("Y gradient",abs_grad_y);
+    cv::imshow("X gradient",abs_grad_x);
     /// Total Gradient (approximate)
     cv::addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, sobel_frame);
     cv::imshow("InputFrame", frame);
